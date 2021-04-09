@@ -65,3 +65,18 @@ ggplot(data = properties %>% filter(!is.na(CoCYears) & CoCYears != 0 & !is.na(La
        mapping = aes(x=factor(CoCYears), y=PropertyValue)) + geom_boxplot()
 
 ```
+
+
+
+```{r top_20_landlords}
+
+properties %>%
+  group_by(Owner) %>%
+  summarize(
+    NumberOfProperties = n(),
+    TotalValue = sum(PropertyValue)
+  ) %>% 
+  arrange(desc(NumberOfProperties)) %>% 
+  top_n(20, NumberOfProperties)
+
+```
