@@ -1,8 +1,10 @@
 ---
 title: "Project Draft"
-author: "Chris McCabe"
-date: "4/6/2021"
-output: html_document
+author: "Luke Fredrickson, Anika Miner, Chris McCabe"
+date: "4/9/2021"
+output: 
+        html_document: 
+                toc: true
 ---
 
 ```{r setup, include=FALSE}
@@ -11,20 +13,27 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-```{r import}
+```{r import,message = FALSE,warning=FALSE}
 
 library(tidyverse)
 library(ggmap)
+library(viridis)
 
 properties <- read.csv("properties.csv")
 
 
-
 ```
 
-## Including Plots
+## Number of Properties
 
-You can also embed plots, for example:
+Out of the 3086 entries in the rental property data we obtained, 2121 of them are
+owned by owners who own less than 5 properties. Most of that 2121 is made up of
+the 1809 properties whose owners only own that one property. So to take a deeper
+look at some of the major landlords and property management companies in Burlington,
+we filtered the data to include properties whose owners owned at least 5 properties.
+Shown in the second graph, you can see that a majority of the owners that own more than
+four properties own 5-7 properties. The outlier in the data set is Diemer Properties
+who owns a total of 32 properties. 
 
 ```{r num_properties}
 
@@ -33,38 +42,101 @@ NumProperties <- properties %>% group_by(Owner) %>% summarize(nProperties = n())
 summary(NumProperties$nProperties)
 
 ggplot(data = NumProperties, 
-       mapping = aes(nProperties)) + geom_bar()
-
-ggplot(data = NumProperties %>% filter(nProperties >= 5),mapping = aes(nProperties,fill = )) +
-        geom_bar()+
+       mapping = aes(nProperties)) + 
+        geom_bar(color = "black",fill="tomato2")+
         labs(title = "Properties Owned per Landlord",x="Number of Properties Owned",
-             y = "Owners")
+             y = "Owners")+
+        theme_minimal()
 
+ggplot(data = NumProperties %>% filter(nProperties >= 5),mapping = aes(nProperties)) +
+        geom_bar(color = "black",fill="tomato2")+
+        labs(title = "Properties Owned per Landlord",x="Number of Properties Owned",
+             y = "Owners",subtitle = "Owners With 5 or More Properties")+
+         annotate( geom = 'text', x = 31, y = 2, label = "Diemer Properties")+
+        theme_minimal()
 ```
 
+## Types of Rental Properites
 
+There are 15 active land use codes in our dataset for the rental properties in Burlington.
+The most common is a two family rental, with one to 5 family apartments, and residential 
+condos taking up the very large majority of properties. The commerical/residential 
+properties (residential above commercial properties e.g. Church Street) are the next
+most common.
 
 ```{r rental_types}
 
-ggplot(data = properties %>% filter(!is.na(LandUseCode)), 
-       mapping = aes(LandUseCode)) + geom_bar()
+ggplot(data = properties %>% filter(!is.na(LandUseCode)),mapping = aes(x = LandUseCode,fill = LandUseCode)) + 
+        geom_bar()+
+        labs(title = "Rental Property Land Use Codes", 
+             x = "Land Use Code", 
+             y = "Count",
+             fill = "Land Use Codes")+
+        theme_minimal()+
+        scale_fill_discrete(labels = c("Commercial","Commericial Condo",
+                                       "Commercial/Residential","Exempt(Land+Building)","Mobile Home(w/o land)",
+                                       "Single Family","Two Family","Three Family","Four Family","Five+ Family",
+                                       "Res. Apt. Condo","Residential Condo","Service","Taxable/Partly Exempt",
+                                       "Unknown Owner"))
 
 ```
 
+## Certificate of Compliance
+
+The certificate of compliance is based off house inspections and how many years
+in a row the property has complied with Burlington's building code. If the 
+property has complied with the code for 5 years, they will have a 5 year Certificate
+of Compliance. The majority of properties have 4 or 5 year certificates. Properties
+with a 0 year certificate either failed inspections in the most recent inspection
+or have not been inspected due to COVID-19.
 
 
 ```{r CoC_type}
 
-ggplot(data = properties %>% filter(!is.na(CoCYears)), 
-       mapping = aes(CoCYears)) + geom_bar()
+ggplot(data = properties %>% filter(!is.na(CoCYears)), mapping = aes(x=CoCYears)) + 
+        geom_bar(color = "black",fill = "#CE2029")+
+        labs(title = "Certificate of Compliance Age",
+             subtitle = "(Higher is Better)",
+             x="Certificate of Compliance Age (Years)", 
+             y = "Number of Properties")+
+        theme_minimal()
 
 ```
 
+## Does CoC Affect Property Value
+
+The original hypothesis was that the properties with a less desirable CoC would
+have a lower property value. However, from the boxplots below we learned that the
+property value across all year values for the CoC was very similar. The median 
+property value for all CoC years was ~$275,000.
 
 
 ```{r value_vs_coc}
 
-ggplot(data = properties %>% filter(!is.na(CoCYears) & CoCYears != 0 & !is.na(LastMhInspectionDate) & PropertyValue < 1000000), 
-       mapping = aes(x=factor(CoCYears), y=PropertyValue)) + geom_boxplot()
+ggplot(data = properties %>% 
+               filter(!is.na(CoCYears) & CoCYears != 0 & !is.na(LastMhInspectionDate) & PropertyValue < 1000000), 
+       mapping = aes(x=factor(CoCYears), y=PropertyValue,fill = CoCYears)) + 
+        geom_boxplot()+
+        labs(title = "Property Value VS. CoC Age",
+             x = "Certificate of Compliance Age (Years)",
+             y = "Property Value (USD)")+
+        scale_fill_gradient(high = "#ff9300",low = "#b60000")+
+        guides(fill=FALSE)+
+        theme_minimal()
+
+
+```
+
+
+```{r top_20_landlords}
+
+properties %>%
+  group_by(Owner) %>%
+  summarize(
+    NumberOfProperties = n(),
+    TotalValue = sum(PropertyValue)
+  ) %>% 
+  arrange(desc(NumberOfProperties)) %>% 
+  top_n(20, NumberOfProperties)
 
 ```
