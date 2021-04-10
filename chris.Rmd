@@ -73,11 +73,11 @@ ggplot(data = properties %>% filter(!is.na(LandUseCode)),mapping = aes(x = LandU
              y = "Count",
              fill = "Land Use Codes")+
         theme_minimal()+
-        scale_fill_discrete(labels = c("Commercial","Commericial Condo",
-                                       "Commercial/Residential","Exempt(Land+Building)","Mobile Home(w/o land)",
-                                       "Single Family","Two Family","Three Family","Four Family","Five+ Family",
-                                       "Res. Apt. Condo","Residential Condo","Service","Taxable/Partly Exempt",
-                                       "Unknown Owner"))
+        scale_fill_discrete(labels = c("C = Commercial","CC = Commericial Condo",
+                                       "CR = Commercial/Residential","E = Exempt (Land+Building)","MH = Mobile Home (w/o land)",
+                                       "R1 = Single Family","R2 = Two Family","R3 = Three Family","R4 = Four Family","RA = Apartments",
+                                       "RAC = Residential Apartment/Condo","RC = Residential Condo","S1 = Service","TE = Taxable/Partly Exempt",
+                                       "X = Unknown Owner"))
 
 ```
 

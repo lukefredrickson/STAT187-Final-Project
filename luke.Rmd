@@ -34,7 +34,7 @@ summary(NumProperties$nProperties)
 ggplot(data = NumProperties, 
        mapping = aes(nProperties)) + geom_bar()
 
-ggplot(data = NumProperties %>% filter(nProperties >= 5), 
+ggplot(data = NumProperties %>% filter(nProperties >= 3), 
        mapping = aes(nProperties)) + geom_bar()
 
 ```
