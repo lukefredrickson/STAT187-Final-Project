@@ -139,8 +139,11 @@ properties (residential above commercial properties e.g. Church Street) are the 
 most common.
 
 ```{r rental_types}
+propertiesOrdered <- properties %>% group_by(LandUseCode)%>%
+  mutate(ncodes = n()) %>% filter(!is.na(LandUseCode))
 
-ggplot(data = properties %>% filter(!is.na(LandUseCode)),mapping = aes(x = LandUseCode,fill = LandUseCode)) + 
+ggplot(data = propertiesOrdered,
+       mapping = aes(x = reorder(LandUseCode, desc(ncodes)), fill = LandUseCode)) + 
         geom_bar()+
         labs(title = "Rental Property Land Use Codes", 
              x = "Land Use Code", 
@@ -198,6 +201,20 @@ ggplot(data = properties %>%
         guides(fill=FALSE)+
         theme_minimal()
 
+#scale_fill_gradient(high = "#ff9300",low = "#b60000")+
+
+ggplot(data = properties %>% 
+               filter(!is.na(CoCYears) & CoCYears != 0 & !is.na(LastMhInspectionDate) & PropertyValue < 1000000), 
+       mapping = aes(x= PropertyValue,fill = CoCYears))+
+  geom_density()+
+  scale_y_continuous(name = "%", labels=scales::percent)+
+  scale_fill_gradient(high = "#ff9300",low = "#b60000")+
+  facet_grid(CoCYears ~ .)+
+  labs(title = "Property Value VS. CoC Age",
+             y = "Certificate of Compliance Age (Years)",
+             x = "Property Value (USD)")+
+        guides(fill=FALSE)+
+        theme_minimal()
 
 ```
 
