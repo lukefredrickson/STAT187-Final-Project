@@ -1,7 +1,7 @@
 ---
 title: "Group 6 Final Project"
 author: "Anika Miner, Chris McCabe, & Luke Fredrickson"
-date: "5/4/2021"
+date: "4/9/2021"
 output: html_document
 ---
 
@@ -24,14 +24,14 @@ The final properties data set contains the following information:
  * **CoCIssueDate** (Factor) - The date which the CoC was issued for the property.
  * **CoCExpireDate** (Factor) - The date which the CoC expires for the property.
  * **StreetAddress** (Factor) - The address of the property.
- * **LandUseCode** (Factor) - A code assigned to each parcel of land describing what it is used for (R1 = single family, RA = apartments, C = commercial, etc).
+ * **LandUseCode** (Factor) - A code assigned to each parcel of land describing what it is used for.
  * **ResidentialUnits** (Integer) - The number of units per property.
  * **RentalUnits** (Integer) - The number of units for rent per property.
  * **LastMhInspectionDate** (Factor) - The date of the most recent property inspection.
  * **lat** (Numeric) - The latitude of the property.
  * **long** (Numeric) - The longitude of the property.
 
-The data is comprehensive across the entire city of Burlington, and contains data for every single rental property within the city limits. Because the data set is comprehensive, and not sampled, there is no sampling bias. The data is observational, as it surveys all properties across Burlington, and is collected for city record-keeping purposes. Measurements were collected from official city documents, including tax records and official city inspection data. No survey questions were asked. It is possible there is some bias in the assessment of property condition or value due to racial discrimination or other factors, but we don’t believe that bias would cause enough variance to be obstructive to our analysis. All other measurements are objective (landlord name, address, coordinates, certificate issue date, etc).
+The data is comprehensive across the entire city of Burlington, and contains data for every single rental property within the city limits. Because the data set is comprehensive, and not sampled, there is no sampling bias. The data is observational, as it surveys all properties across Burlington, and is collected for city record-keeping purposes. Measurements were collected from official city documents, including tax records and official city inspection data. No questions were asked. It is possible there is some bias in the assessment of property condition or value due to racial discrimination or other factors, but we don’t believe that bias would cause enough variance to be obstructive to our analysis. All other measurements are objective (landlord name, address, coordinates, certificate issue date, etc).
 
 On its own, the Rental Property Certificates of Compliance data set isn’t particularly interesting, because it doesn’t contain information on property value or who actually owns the property. However, when we combine the CoC data with the Burlington Property Database data, we can analyze which landlords own the most or least property, what neighborhoods they are in, and how compliant they are with Burlington city codes.
 
@@ -88,6 +88,7 @@ library(ggmap)
 library(viridis)
 
 properties <- read.csv("properties.csv")
+
 
 ```
 
@@ -227,8 +228,12 @@ ggplot(data = properties %>%
 
 # IV. Conclusions
 
-The data set we used included data from a little over 3000 properties in Burlington, VT, and goes into their certificates of compliance. Our visualizations of this data set, which we combined with data from the Burlington property database, are quite helpful in analysis. Our graph of the number of properties owned per landlord (Graph 1) showed that it is much more common for landlords to own only a few properties, and the data is very skewed right. Graph 3 shows the different rental types: what’s popular and what is not. The type ‘R2’ or 2 Family, was found to be most common, with ‘RC’, or Residential Condo, close behind. Graph 4 showed us that certificates of compliance by years had a left skew. Most of them last four or five years, with a significantly lower number of any less years. Graph 5 displays the similarities between certificate of compliance years and property value, and how regardless of years certificates of compliance were in place, property value stayed more or less the same.
+**Write some overall conclusions – an overall summary of what you learned from your visualizations and analysis. Summarize in one paragraph.**
+
+The data set we used included data from a little over 3000 properties in Burlington, VT, and goes into their certificates of compliance. Our visualizations of this data set, which we combined with data from the Burlington property database, are quite helpful in analysis. Our graph of the number of properties owned per landlord (Graph 1) showed that it is much more common for landlords to own only a few properties, and the data is very skewed right. Graph 2 shows the different rental types: what’s popular and what is not. The type ‘R2’ or 2 Family, was found to be most common, with ‘RC’, or Residential Condo, close behind. Graph 3 showed us that certificates of compliance by years had a left skew. Most of them last four or five years, with a significantly lower number of any less years. Graph 4 displays the similarities between certificate of compliance years and property value, and how regardless of years certificates of compliance were in place, property value stayed more or less the same.
 
 # V. Limitations/Recommendations
+
+**Write a paragraph describing some of the limitations that are inherent in your study. Also discuss ideas for future research that might build on the work you did in this project.  Summarize in one paragraph.**
 
 The major limitations of this data set stem from the highly contextual nature of property ownership records. A landlord can be listed as the owner of a property under their legal name or an LLC, and a single person can own multiple LLCs. If a landlord owns a large number of properties but wishes to obfuscate that fact, they can distribute ownership of those properties throughout a handful of different LLCs. Similarly, a family can control a large number of properties collectively — take the Bissonette family, for example. Their LLC, “BPJS MANAGEMENT LLC”, is listed as the owner of 21 different properties in the database, but the family collectively owns 6 additional properties under their respective legal names, and may potentially control even more properties via LLCs. Further research could attempt to rectify this problem via deep analysis of who actually owns each individual LLC, as those documents are likely public. This would be a very time-consuming endeavor, but would give a much more granular and accurate view of who controls property in Burlington.
