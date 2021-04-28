@@ -27,6 +27,7 @@ The final properties data set contains the following information:
  * **LandUseCode** (Factor) - A code assigned to each parcel of land describing what it is used for.
  * **ResidentialUnits** (Integer) - The number of units per property.
  * **RentalUnits** (Integer) - The number of units for rent per property.
+ * **AmandaPropertyRSN** (Integer) - Actually Unique identifier for each property.
  * **LastMhInspectionDate** (Factor) - The date of the most recent property inspection.
  * **lat** (Numeric) - The latitude of the property.
  * **long** (Numeric) - The longitude of the property.
