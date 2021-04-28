@@ -13,13 +13,13 @@ properties$PropertyTaxes <- as.numeric(gsub('\\$|,', '', properties$PropertyTaxe
 properties <- properties %>% separate(geopoint, into=c("lat", "long"), sep=",")
 
 # drop unnecessary columns
-properties <- properties %>% select(!c(Address, Span, UniqueId, UnitNumber, GISPIN, UpdateDate, geopoint))
+properties <- properties %>% select(!c(Address, Span, UniqueId, UnitNumber, GISPIN, UpdateDate, LastMhInDate))
 
 # drop commas and periods from owner names to eliminate discrepancies
 properties$Owner <- gsub('\\.|,', '', properties$Owner)
 
 # write out to new csv
-write.csv(properties, "properties_new.csv", row.names=FALSE)
+write.csv(properties, "properties_goodgeo.csv", row.names=FALSE)
 
 # top 10 largest landlords and the total value of their properties
 properties %>%
