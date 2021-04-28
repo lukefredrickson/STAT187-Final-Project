@@ -10,11 +10,7 @@ properties$PropertyValue <- as.numeric(gsub('\\$|,', '', properties$PropertyValu
 properties$PropertyTaxes <- as.numeric(gsub('\\$|,', '', properties$PropertyTaxes))
 
 # split geopoint column to lat and long numeric cols
-properties <- properties %>%
-  mutate(
-    lat = as.numeric(unlist(strsplit(as.character(properties$geopoint), ","))[1]),
-    long = as.numeric(unlist(strsplit(as.character(properties$geopoint), ","))[2])
-  )
+properties <- properties %>% separate(geopoint, into=c("lat", "long"), sep=",")
 
 # drop unnecessary columns
 properties <- properties %>% select(!c(Address, Span, UniqueId, UnitNumber, GISPIN, UpdateDate, geopoint))
