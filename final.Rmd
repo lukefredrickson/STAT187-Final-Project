@@ -59,11 +59,7 @@ properties$PropertyTaxes <- as.numeric(gsub('\\$|,', '', properties$PropertyTaxe
 The latitude and longitude data was stored in one column, ‘geopoint’, so we split those out into two numeric columns like this:
 
 ```{r eval=FALSE}
-properties <- properties %>% 
-  mutate(
-      lat = as.numeric(unlist(strsplit(as.character(properties$geopoint), ","))[1]),
-      long = as.numeric(unlist(strsplit(as.character(properties$geopoint), ","))[2])
-  )
+properties <- properties %>% separate(geopoint, into=c("lat", "long"), sep=",")
 ```
 
 There were some duplicate columns from joining, and some columns that were not necessary for analysis, so we dropped those columns like this:
