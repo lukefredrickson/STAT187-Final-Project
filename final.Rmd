@@ -83,6 +83,9 @@ This still left several instances where owners were counted incorrectly — disc
 library(tidyverse)
 library(ggmap)
 library(viridis)
+library(class)
+library(gmodels)
+library(C50)
 
 properties <- read.csv("properties.csv")
 
@@ -223,14 +226,84 @@ ggplot(data = properties %>%
 
 ```
 
-# IV. Conclusions
+# III. Machine Learning
 
-**Write some overall conclusions – an overall summary of what you learned from your visualizations and analysis. Summarize in one paragraph.**
+### Create training and test set, compare proportions
+
+```{r cartraintest}
+
+# Select only useful numeric columns & LandUseCode predictor. Filter out LandUseCodes which aren't seen often.
+# Interesting thing to note -- adding lat and long increases the accuracy by a few percentage points -- probably because similar types of residences are often grouped together in neighborhoods.
+
+properties_simple <- properties %>% select(LandUseCode, PropertyValue, PropertyTaxes, CoCYears, ResidentialUnits, RentalUnits, lat, long) %>% filter(!(LandUseCode %in% c("E", "MH", "X", "C", "CC", "RAC", "S1", "TE")))
+
+RNGversion('3.5.3')
+set.seed(1112)
+sample <- sample(1:nrow(properties_simple), 1500)
+RNGversion(getRversion())
+
+train <- properties_simple[sample, ]
+test <- properties_simple[-sample,]
+
+prop.table(table(train$LandUseCode))
+prop.table(table(test$LandUseCode))
+
+```
+
+###  Run C5.0 model on data
+
+```{r firstmodel}
+
+model <- C5.0(x = train[,2:8],
+              y = as.factor(train$LandUseCode))
+
+# display simple facts about the tree
+
+model
+
+# display detailed information about the tree
+
+summary(model)
+
+pred <- predict(model,  test)
+
+# cross tabulation of predicted versus actual classes
+#  dnn = names given to dimensions of table, rows then cols
+
+CrossTable(test$LandUseCode, pred,
+           prop.chisq = FALSE, prop.c =FALSE,
+           prop.r = FALSE,
+           dnn = c('actual data', 'predicted data'))
+```
+
+###  Redo with Boosting (no cost matrix)
+
+```{r boost}
+
+model <- C5.0(x = train[,2:8],
+              y = as.factor(train$LandUseCode),
+              trials = 10)
+
+# display simple facts about the tree
+
+model
+
+# display detailed information about the tree
+
+summary(model)
+
+pred <- predict(model,  test)
+CrossTable(test$LandUseCode, pred,
+           prop.chisq = FALSE, prop.c =FALSE,
+           prop.r = FALSE,
+           dnn = c('actual data', 'predicted data'))
+
+```
+
+# IV. Conclusions
 
 The data set we used included data from a little over 3000 properties in Burlington, VT, and goes into their certificates of compliance. Our visualizations of this data set, which we combined with data from the Burlington property database, are quite helpful in analysis. Our graph of the number of properties owned per landlord (Graph 1) showed that it is much more common for landlords to own only a few properties, and the data is very skewed right. Graph 2 shows the different rental types: what’s popular and what is not. The type ‘R2’ or 2 Family, was found to be most common, with ‘RC’, or Residential Condo, close behind. Graph 3 showed us that certificates of compliance by years had a left skew. Most of them last four or five years, with a significantly lower number of any less years. Graph 4 displays the similarities between certificate of compliance years and property value, and how regardless of years certificates of compliance were in place, property value stayed more or less the same.
 
 # V. Limitations/Recommendations
-
-**Write a paragraph describing some of the limitations that are inherent in your study. Also discuss ideas for future research that might build on the work you did in this project.  Summarize in one paragraph.**
 
 The major limitations of this data set stem from the highly contextual nature of property ownership records. A landlord can be listed as the owner of a property under their legal name or an LLC, and a single person can own multiple LLCs. If a landlord owns a large number of properties but wishes to obfuscate that fact, they can distribute ownership of those properties throughout a handful of different LLCs. Similarly, a family can control a large number of properties collectively — take the Bissonette family, for example. Their LLC, “BPJS MANAGEMENT LLC”, is listed as the owner of 21 different properties in the database, but the family collectively owns 6 additional properties under their respective legal names, and may potentially control even more properties via LLCs. Further research could attempt to rectify this problem via deep analysis of who actually owns each individual LLC, as those documents are likely public. This would be a very time-consuming endeavor, but would give a much more granular and accurate view of who controls property in Burlington.
