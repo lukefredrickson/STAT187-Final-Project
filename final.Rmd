@@ -1,10 +1,13 @@
 ---
-title: "Group 6 Final Project"
-author: "Anika Miner, Chris McCabe, & Luke Fredrickson"
-date: "4/9/2021"
+title: "Group 6 Final Project: Burlington Rental Properties"
+author:
+ - Anika Miner
+ - Chris McCabe
+ - Luke Fredrickson
+date: "5/4/2021"
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}

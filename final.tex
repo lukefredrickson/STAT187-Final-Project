@@ -570,6 +570,20 @@ lower density of rentals properties.
 \hypertarget{iii.-machine-learning}{%
 \section{III. Machine Learning}\label{iii.-machine-learning}}
 
+\hypertarget{analysis}{%
+\subsubsection{Analysis}\label{analysis}}
+
+The results of the decision tree models, both boosted and regular, were
+fairly successful. The plain decision tree method produced a model with
+an error rate of 8.3\%. We also ran a 10x boosted decision tree model
+and recieved a minor improvement to an error rate of 7.6\%.
+Interestingly, when the longitude and latitude variables for each
+property were added to the predicting variables, the error improved by
+about 4 percentage points. This presumably meaning that the model could
+``learn'' what areas had a larger probability for a certain land use
+code and combined with the other variables could more accurately predict
+the code for a given property in the test set.
+
 \hypertarget{create-training-and-test-set-compare-proportions}{%
 \subsubsection{Create training and test set, compare
 proportions}\label{create-training-and-test-set-compare-proportions}}
@@ -663,7 +677,7 @@ proportions}\label{create-training-and-test-set-compare-proportions}}
 ## C5.0.default(x = train[, 2:8], y = as.factor(train$LandUseCode))
 ## 
 ## 
-## C5.0 [Release 2.07 GPL Edition]      Tue May 04 12:38:06 2021
+## C5.0 [Release 2.07 GPL Edition]      Tue May 04 12:39:52 2021
 ## -------------------------------
 ## 
 ## Class specified by attribute `outcome'
@@ -817,9 +831,8 @@ proportions}\label{create-training-and-test-set-compare-proportions}}
 ## 
 \end{verbatim}
 
-\hypertarget{redo-with-boosting-no-cost-matrix}{%
-\subsubsection{Redo with Boosting (no cost
-matrix)}\label{redo-with-boosting-no-cost-matrix}}
+\hypertarget{redo-with-boosting}{%
+\subsubsection{Redo with Boosting}\label{redo-with-boosting}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
