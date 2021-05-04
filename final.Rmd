@@ -249,6 +249,14 @@ ggmap(get_googlemap(center = c(lon = -73.225, lat = 44.485),
 
 
 # III. Machine Learning
+### Analysis
+The results of the decision tree models, both boosted and regular, were fairly successful. The plain 
+decision tree method produced a model with an error rate of 8.3%. We also ran a 10x boosted decision tree
+model and recieved a minor improvement to an error rate of 7.6%. Interestingly, when the longitude and
+latitude variables for each property were added to the predicting variables, the error improved by about 4
+percentage points. This presumably meaning that the model could "learn" what areas had a larger probability
+for a certain land use code and combined with the other variables could more accurately predict the code
+for a given property in the test set.
 
 ### Create training and test set, compare proportions
 
@@ -321,6 +329,7 @@ CrossTable(test$LandUseCode, pred,
            dnn = c('actual data', 'predicted data'))
 
 ```
+
 
 # IV. Conclusions
 
