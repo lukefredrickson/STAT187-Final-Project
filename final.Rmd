@@ -2,7 +2,9 @@
 title: "Group 6 Final Project"
 author: "Anika Miner, Chris McCabe, & Luke Fredrickson"
 date: "4/9/2021"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -226,6 +228,26 @@ ggplot(data = properties %>%
 
 ```
 
+## Graph 6: Map of CoC Years for all properties in Burlington
+
+The vast concentration of rental properties clearly lies in the Old North End neighborhood, and the areas surrounding UVM and downtown Burlington. The South End and New North End neighborhoods have a far lower density of rentals properties.
+
+
+```{r map, warning=FALSE}
+ggmap::register_google(key = "AIzaSyBoXvBVphUedpDsc05jtjZbH5pQGZJWQLc")
+ggmap(get_googlemap(center = c(lon = -73.225, lat = 44.485),
+                    zoom = 13, scale = 2, 
+                    maptype ='terrain',
+                    color = 'color',
+                    alpha = 0.25)) +
+  geom_point(aes(x = long, y = lat,  
+                 color = CoCYears), data = properties, size = 0.5) + 
+  theme(legend.position="right") +
+  labs(title = "CoC Years of Properties", x = "Longitude", y = "Latitude")
+
+```
+
+
 # III. Machine Learning
 
 ### Create training and test set, compare proportions
@@ -252,7 +274,7 @@ prop.table(table(test$LandUseCode))
 
 ###  Run C5.0 model on data
 
-```{r firstmodel}
+```{r firstmodel, warning=FALSE}
 
 model <- C5.0(x = train[,2:8],
               y = as.factor(train$LandUseCode))
@@ -276,9 +298,9 @@ CrossTable(test$LandUseCode, pred,
            dnn = c('actual data', 'predicted data'))
 ```
 
-###  Redo with Boosting (no cost matrix)
+###  Redo with Boosting
 
-```{r boost}
+```{r boost, warning=FALSE}
 
 model <- C5.0(x = train[,2:8],
               y = as.factor(train$LandUseCode),
@@ -290,7 +312,7 @@ model
 
 # display detailed information about the tree
 
-summary(model)
+# summary(model)
 
 pred <- predict(model,  test)
 CrossTable(test$LandUseCode, pred,

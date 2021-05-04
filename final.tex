@@ -1,0 +1,948 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+  \usepackage{amssymb}
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Group 6 Final Project},
+  pdfauthor={Anika Miner, Chris McCabe, \& Luke Fredrickson},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{Group 6 Final Project}
+\author{Anika Miner, Chris McCabe, \& Luke Fredrickson}
+\date{4/9/2021}
+
+\begin{document}
+\maketitle
+
+\hypertarget{i.-introduction}{%
+\section{I. Introduction}\label{i.-introduction}}
+
+In January 2020, Mayor Miro Weinberger enacted an executive order
+establishing the \href{https://www.burlingtonvt.gov/it/open-data}{Open
+Data Policy}, which enabled access to a large amount of Burlington
+municipal data. Part of our data comes from
+\href{https://data.burlingtonvt.gov/pages/home/}{Burlington's Open Data
+Portal}, in the
+\href{https://data.burlingtonvt.gov/explore/dataset/rental-property-certificate-of-compliance/information/}{Rental
+Property Certificates of Compliance data set}, which contains data on
+code compliance for every rental property in Burlington, but no
+information on which landlord owns that property. The other part of our
+data is scraped from the
+\href{https://property.burlingtonvt.gov/}{Burlington Property Database}.
+The Property Database is not downloadable, but it is easy to scrape with
+a simple python script, and contains more granular detail on property
+values and landlords. Our final data set combines both of these data
+sets to provide a rich view of Burlington rental property data. Both
+data sets are continuously updated, but our final data set is built from
+data accessed on March 26th, 2021. The final data set can be downloaded
+\href{https://github.com/lukefredrickson/STAT187-Final-Project/blob/master/properties.csv}{here}.
+
+The final properties data set contains the following information:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{TaxParcelId} (Factor) - A unique identifier for each parcel of
+  land in Burlington, used for tax purposes.
+\item
+  \textbf{SPAN.Number} (Factor) - SPAN stands for ``School Property
+  Account Number''. SPAN numbers are a unique 11-digit ID assigned by a
+  municipality in VT to each property.
+\item
+  \textbf{PropertyValue} (Numeric) - The total value of an individual
+  property.
+\item
+  \textbf{PropertyTaxes} (Numeric) - The property taxes for an
+  individual property from the 2020 tax year.
+\item
+  \textbf{Owner} (Factor) - The owner/landlord.
+\item
+  \textbf{CoCYears} (Integer) - The duration of the Certificate of
+  Compliance (CoC) issued for the property. CoCs are issued by the city
+  to each property for durations of 1, 2, 3, 4, or 5 years. If a
+  property has poor code compliance, it will receive a certificate which
+  is valid for fewer years, and if a property complies with code
+  consistently it will receive a 5-year CoC.
+\item
+  \textbf{CoCIssueDate} (Factor) - The date which the CoC was issued for
+  the property.
+\item
+  \textbf{CoCExpireDate} (Factor) - The date which the CoC expires for
+  the property.
+\item
+  \textbf{StreetAddress} (Factor) - The address of the property.
+\item
+  \textbf{LandUseCode} (Factor) - A code assigned to each parcel of land
+  describing what it is used for.
+\item
+  \textbf{ResidentialUnits} (Integer) - The number of units per
+  property.
+\item
+  \textbf{RentalUnits} (Integer) - The number of units for rent per
+  property.
+\item
+  \textbf{AmandaPropertyRSN} (Integer) - Actually Unique identifier for
+  each property.
+\item
+  \textbf{LastMhInspectionDate} (Factor) - The date of the most recent
+  property inspection.
+\item
+  \textbf{lat} (Numeric) - The latitude of the property.
+\item
+  \textbf{long} (Numeric) - The longitude of the property.
+\end{itemize}
+
+The data is comprehensive across the entire city of Burlington, and
+contains data for every single rental property within the city limits.
+Because the data set is comprehensive, and not sampled, there is no
+sampling bias. The data is observational, as it surveys all properties
+across Burlington, and is collected for city record-keeping purposes.
+Measurements were collected from official city documents, including tax
+records and official city inspection data. No questions were asked. It
+is possible there is some bias in the assessment of property condition
+or value due to racial discrimination or other factors, but we don't
+believe that bias would cause enough variance to be obstructive to our
+analysis. All other measurements are objective (landlord name, address,
+coordinates, certificate issue date, etc).
+
+On its own, the Rental Property Certificates of Compliance data set
+isn't particularly interesting, because it doesn't contain information
+on property value or who actually owns the property. However, when we
+combine the CoC data with the Burlington Property Database data, we can
+analyze which landlords own the most or least property, what
+neighborhoods they are in, and how compliant they are with Burlington
+city codes.
+
+First, we needed to scrape the data from the Burlington Property
+Database. We used the python `Requests' library to query the database,
+and the `Beautiful Soup' library to parse through the HTML and grab the
+data we wanted for each property (tax parcel ID, owner, address, SPAN
+number, property value, and property taxes). We wrote this data out to a
+CSV file with the python `CSV' library. The CoC data set is separated
+with semicolons instead of commas, so we needed to read the csv like
+this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{coc }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"rental{-}property{-}certificate{-}of{-}compliance.csv"}\NormalTok{, }\AttributeTok{sep=}\StringTok{";"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+We were then able to read in the scraped data csv like normal, and join
+the two like this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{properties }\OtherTok{\textless{}{-}} \FunctionTok{left\_join}\NormalTok{(properties\_scraped, coc, }\AttributeTok{by=}\StringTok{"TaxParcelId"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+The property value and property tax data was character data, with \$'s
+and commas, so we needed to convert those columns to numeric data like
+this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{properties}\SpecialCharTok{$}\NormalTok{PropertyValue }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{gsub}\NormalTok{(}\StringTok{\textquotesingle{}}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{$|,\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{, properties}\SpecialCharTok{$}\NormalTok{PropertyValue))}
+\NormalTok{properties}\SpecialCharTok{$}\NormalTok{PropertyTaxes }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{gsub}\NormalTok{(}\StringTok{\textquotesingle{}}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{$|,\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{, properties}\SpecialCharTok{$}\NormalTok{PropertyTaxes))}
+\end{Highlighting}
+\end{Shaded}
+
+The latitude and longitude data was stored in one column, `geopoint', so
+we split those out into two numeric columns like this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{properties }\OtherTok{\textless{}{-}}\NormalTok{ properties }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{separate}\NormalTok{(geopoint, }\AttributeTok{into=}\FunctionTok{c}\NormalTok{(}\StringTok{"lat"}\NormalTok{, }\StringTok{"long"}\NormalTok{), }\AttributeTok{sep=}\StringTok{","}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+There were some duplicate columns from joining, and some columns that
+were not necessary for analysis, so we dropped those columns like this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{properties }\OtherTok{\textless{}{-}}\NormalTok{ properties }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{c}\NormalTok{(Address, Span, UniqueId, UnitNumber, GISPIN, UpdateDate, geopoint))}
+\end{Highlighting}
+\end{Shaded}
+
+The Burlington properties database was inconsistent in its naming for
+property owners. There were many instances where a missing comma or an
+extra period would cause a single landlord to be counted as multiple
+landlords (``DOE, JOHN M'' vs ``DOE JOHN M'' vs ``DOE, JOHN M.'' vs
+``DOE JOHN M.''). This made it seem like there were more single-property
+landlords than there actually were. To partially fix this, we removed
+all commas and periods from the owners column like this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{properties}\SpecialCharTok{$}\NormalTok{Owner }\OtherTok{\textless{}{-}} \FunctionTok{gsub}\NormalTok{(}\StringTok{\textquotesingle{}}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{.|,\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{, properties}\SpecialCharTok{$}\NormalTok{Owner)}
+\end{Highlighting}
+\end{Shaded}
+
+This still left several instances where owners were counted incorrectly
+--- discrepancies with middle names were particularly common (``DOE
+JOHN'' vs ``DOE JOHN M'' vs ``DOE JOHN MIDDLE''). There were also
+instances where LLCs were very similarly named or had typos. There
+wasn't an easy way to fix all of these errors in code as the solution
+for each error was highly contextual, so we had to manually go through
+the data set and fix these errors where we saw them.
+
+\hypertarget{ii.-data-visualizations}{%
+\section{II. Data Visualizations}\label{ii.-data-visualizations}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(ggmap)}
+\FunctionTok{library}\NormalTok{(viridis)}
+\FunctionTok{library}\NormalTok{(class)}
+\FunctionTok{library}\NormalTok{(gmodels)}
+\FunctionTok{library}\NormalTok{(C50)}
+
+\NormalTok{properties }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"properties.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{graph-1-number-of-properties}{%
+\subsection{Graph 1: Number of
+Properties}\label{graph-1-number-of-properties}}
+
+Out of the 3086 entries in the rental property data we obtained, 2121 of
+them are owned by owners who own less than 5 properties. Most of that
+2121 is made up of the 1809 properties whose owners only own that one
+property. So to take a deeper look at some of the major landlords and
+property management companies in Burlington, we filtered the data to
+include properties whose owners owned at least 5 properties. Shown in
+the second graph, you can see that a majority of the owners that own
+more than four properties own 5-7 properties. The outlier in the data
+set is Diemer Properties who owns a total of 32 properties.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{NumProperties }\OtherTok{\textless{}{-}}\NormalTok{ properties }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{group\_by}\NormalTok{(Owner) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{summarize}\NormalTok{(}\AttributeTok{nProperties =} \FunctionTok{n}\NormalTok{())}
+
+\FunctionTok{summary}\NormalTok{(NumProperties}\SpecialCharTok{$}\NormalTok{nProperties)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   1.000   1.000   1.000   1.425   1.000  32.000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ NumProperties, }
+       \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(nProperties)) }\SpecialCharTok{+} 
+        \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{color =} \StringTok{"black"}\NormalTok{,}\AttributeTok{fill=}\StringTok{"tomato2"}\NormalTok{)}\SpecialCharTok{+}
+        \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Properties Owned per Landlord"}\NormalTok{,}\AttributeTok{x=}\StringTok{"Number of Properties Owned"}\NormalTok{,}
+             \AttributeTok{y =} \StringTok{"Owners"}\NormalTok{)}\SpecialCharTok{+}
+        \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{final_files/figure-latex/num_properties-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ NumProperties }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(nProperties }\SpecialCharTok{\textgreater{}=} \DecValTok{5}\NormalTok{),}\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(nProperties)) }\SpecialCharTok{+}
+        \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{color =} \StringTok{"black"}\NormalTok{,}\AttributeTok{fill=}\StringTok{"tomato2"}\NormalTok{)}\SpecialCharTok{+}
+        \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Properties Owned per Landlord"}\NormalTok{,}\AttributeTok{x=}\StringTok{"Number of Properties Owned"}\NormalTok{,}
+             \AttributeTok{y =} \StringTok{"Owners"}\NormalTok{,}\AttributeTok{subtitle =} \StringTok{"Owners With 5 or More Properties"}\NormalTok{)}\SpecialCharTok{+}
+         \FunctionTok{annotate}\NormalTok{( }\AttributeTok{geom =} \StringTok{\textquotesingle{}text\textquotesingle{}}\NormalTok{, }\AttributeTok{x =} \DecValTok{31}\NormalTok{, }\AttributeTok{y =} \DecValTok{2}\NormalTok{, }\AttributeTok{label =} \StringTok{"Diemer Properties"}\NormalTok{)}\SpecialCharTok{+}
+        \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{final_files/figure-latex/num_properties-2.pdf}
+
+\hypertarget{graph-2-top-20-landlords-in-burlington}{%
+\subsection{Graph 2: Top 20 Landlords in
+Burlington}\label{graph-2-top-20-landlords-in-burlington}}
+
+To give some context and greater detail on the landlords in Burlington,
+here are the top 20 landlords, their total properties owned, and the
+total value of those combined properties. There are a few interesting
+outliers in terms of total value -- notably, Claire Pointe Owners
+Association controls 18 properties, but, combined, the properties it
+does own are 6 times the value of all the Diemer Properties properties
+combined, even though Diemer properties owns almost twice as many
+properties.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(knitr)}
+
+\FunctionTok{kable}\NormalTok{(properties }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(Owner) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarize}\NormalTok{(}
+    \AttributeTok{NumberOfProperties =} \FunctionTok{n}\NormalTok{(),}
+    \AttributeTok{TotalValue =} \FunctionTok{sum}\NormalTok{(PropertyValue)}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(NumberOfProperties)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{head}\NormalTok{(}\DecValTok{20}\NormalTok{, NumberOfProperties), }\AttributeTok{caption=}\StringTok{"Top 20 Landlords in Burlington by Number of Properties Owned"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}lrr@{}}
+\caption{Top 20 Landlords in Burlington by Number of Properties
+Owned}\tabularnewline
+\toprule
+Owner & NumberOfProperties & TotalValue\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+Owner & NumberOfProperties & TotalValue\tabularnewline
+\midrule
+\endhead
+DIEMER PROPERTIES & 32 & 5695800\tabularnewline
+MCGOWAN JOHN STUART & 26 & 8411300\tabularnewline
+CHAMPLAIN HOUSING TRUST INC & 22 & 6491200\tabularnewline
+BPJS MANAGEMENT LLC & 21 & 8839200\tabularnewline
+J \& S LLC & 20 & 9104400\tabularnewline
+ROONEY RICHARD A & 20 & 3280900\tabularnewline
+CLAIRE POINTE OWNERS ASSOCIATION & 18 & 33130800\tabularnewline
+PBGC LLC & 18 & 9997500\tabularnewline
+BURLINGTON REALTY ASSOCIATES & 17 & 2463700\tabularnewline
+SISTERS \& BROTHERS INVESTMENT GROUP LLP & 17 & 13985100\tabularnewline
+LARKIN JOHN INC & 15 & 3132900\tabularnewline
+OFFENHARTZ INC & 14 & 6359300\tabularnewline
+BOYDEN DOUGLAS G & 13 & 5318800\tabularnewline
+BURLINGTON HOUSING AUTHORITY & 13 & 22981220\tabularnewline
+PHE INC & 13 & 2634700\tabularnewline
+RIELEY PROPERTIES LLC & 13 & 7468500\tabularnewline
+SWB LLC & 13 & 5180000\tabularnewline
+KHAMNEI CHRIS C & 12 & 5832500\tabularnewline
+LAFAYETTE MELISSA B & 12 & 3812600\tabularnewline
+UNIVERSITY OF VERMONT MEDICAL CENTER INC & 12 & 3248000\tabularnewline
+\bottomrule
+\end{longtable}
+
+\hypertarget{graph-3-types-of-rental-properites}{%
+\subsection{Graph 3: Types of Rental
+Properites}\label{graph-3-types-of-rental-properites}}
+
+There are 15 active land use codes in our data set for the rental
+properties in Burlington. The most common is a two family rental, with
+one to 5 family apartments, and residential condos taking up the very
+large majority of properties. The commerical/residential properties
+(residential above commercial properties e.g.~Church Street) are the
+next most common.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{propertiesOrdered }\OtherTok{\textless{}{-}}\NormalTok{ properties }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{group\_by}\NormalTok{(LandUseCode)}\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{ncodes =} \FunctionTok{n}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(LandUseCode))}
+
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ propertiesOrdered,}
+       \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \FunctionTok{reorder}\NormalTok{(LandUseCode, }\FunctionTok{desc}\NormalTok{(ncodes)), }\AttributeTok{fill =}\NormalTok{ LandUseCode)) }\SpecialCharTok{+} 
+        \FunctionTok{geom\_bar}\NormalTok{()}\SpecialCharTok{+}
+        \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Rental Property Land Use Codes"}\NormalTok{, }
+             \AttributeTok{x =} \StringTok{"Land Use Code"}\NormalTok{, }
+             \AttributeTok{y =} \StringTok{"Count"}\NormalTok{,}
+             \AttributeTok{fill =} \StringTok{"Land Use Codes"}\NormalTok{)}\SpecialCharTok{+}
+        \FunctionTok{theme\_minimal}\NormalTok{()}\SpecialCharTok{+}
+        \FunctionTok{scale\_fill\_discrete}\NormalTok{(}\AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"C = Commercial"}\NormalTok{,}\StringTok{"CC = Commericial Condo"}\NormalTok{,}
+                                       \StringTok{"CR = Commercial/Residential"}\NormalTok{,}\StringTok{"E = Exempt (Land+Building)"}\NormalTok{,}\StringTok{"MH = Mobile Home (w/o land)"}\NormalTok{,}
+                                       \StringTok{"R1 = Single Family"}\NormalTok{,}\StringTok{"R2 = Two Family"}\NormalTok{,}\StringTok{"R3 = Three Family"}\NormalTok{,}\StringTok{"R4 = Four Family"}\NormalTok{,}\StringTok{"RA = Apartments"}\NormalTok{,}
+                                       \StringTok{"RAC = Residential Apartment/Condo"}\NormalTok{,}\StringTok{"RC = Residential Condo"}\NormalTok{,}\StringTok{"S1 = Service"}\NormalTok{,}\StringTok{"TE = Taxable/Partly Exempt"}\NormalTok{,}
+                                       \StringTok{"X = Unknown Owner"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{final_files/figure-latex/rental_types-1.pdf}
+
+\hypertarget{graph-4-certificate-of-compliance}{%
+\subsection{Graph 4: Certificate of
+Compliance}\label{graph-4-certificate-of-compliance}}
+
+The Certificate of Compliance (CoC) is a certificate issued by the city
+of Burlington to certify that a property is in compliance with local
+codes and ordinances. The number of years a CoC is valid for is
+determined by how consistently the property has complied with
+Burlington's property codes. If the property has complied with the code
+very consistently, they will be issued a Certificate of Compliance that
+is good for 5 years (the max). The majority of properties have 4 or
+5-year certificates. Properties with a 0-year certificate either failed
+inspections in the most recent inspection or have not been inspected due
+to COVID-19.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ properties }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(CoCYears)), }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{CoCYears)) }\SpecialCharTok{+} 
+        \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{color =} \StringTok{"black"}\NormalTok{,}\AttributeTok{fill =} \StringTok{"\#CE2029"}\NormalTok{)}\SpecialCharTok{+}
+        \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Certificate of Compliance Duration"}\NormalTok{,}
+             \AttributeTok{subtitle =} \StringTok{"(Higher is Better)"}\NormalTok{,}
+             \AttributeTok{x=}\StringTok{"Certificate of Compliance Duration (Years)"}\NormalTok{, }
+             \AttributeTok{y =} \StringTok{"Number of Properties"}\NormalTok{)}\SpecialCharTok{+}
+        \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{final_files/figure-latex/CoC_type-1.pdf}
+
+\hypertarget{graph-5-does-coc-affect-property-value}{%
+\subsection{Graph 5: Does CoC Affect Property
+Value}\label{graph-5-does-coc-affect-property-value}}
+
+The original hypothesis was that the properties with a less desirable
+CoC would have a lower property value. However, from the boxplots below
+we learned that the property value across all year values for the CoC
+was very similar. The median property value for all CoC years was
+\textasciitilde\$275,000.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ properties }\SpecialCharTok{\%\textgreater{}\%} 
+               \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(CoCYears) }\SpecialCharTok{\&}\NormalTok{ CoCYears }\SpecialCharTok{!=} \DecValTok{0} \SpecialCharTok{\&} \SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(LastMhInspectionDate) }\SpecialCharTok{\&}\NormalTok{ PropertyValue }\SpecialCharTok{\textless{}} \DecValTok{1000000}\NormalTok{), }
+       \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\FunctionTok{factor}\NormalTok{(CoCYears), }\AttributeTok{y=}\NormalTok{PropertyValue,}\AttributeTok{fill =}\NormalTok{ CoCYears)) }\SpecialCharTok{+} 
+        \FunctionTok{geom\_boxplot}\NormalTok{()}\SpecialCharTok{+}
+        \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Property Value VS. CoC Duration"}\NormalTok{,}
+             \AttributeTok{x =} \StringTok{"Certificate of Compliance Duration (Years)"}\NormalTok{,}
+             \AttributeTok{y =} \StringTok{"Property Value (USD)"}\NormalTok{)}\SpecialCharTok{+}
+        \FunctionTok{scale\_fill\_gradient}\NormalTok{(}\AttributeTok{high =} \StringTok{"\#ff9300"}\NormalTok{,}\AttributeTok{low =} \StringTok{"\#b60000"}\NormalTok{)}\SpecialCharTok{+}
+        \FunctionTok{guides}\NormalTok{(}\AttributeTok{fill=}\ConstantTok{FALSE}\NormalTok{)}\SpecialCharTok{+}
+        \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{final_files/figure-latex/value_vs_coc-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#scale\_fill\_gradient(high = "\#ff9300",low = "\#b60000")+}
+
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ properties }\SpecialCharTok{\%\textgreater{}\%} 
+               \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(CoCYears) }\SpecialCharTok{\&}\NormalTok{ CoCYears }\SpecialCharTok{!=} \DecValTok{0} \SpecialCharTok{\&} \SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(LastMhInspectionDate) }\SpecialCharTok{\&}\NormalTok{ PropertyValue }\SpecialCharTok{\textless{}} \DecValTok{1000000}\NormalTok{), }
+       \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{ PropertyValue,}\AttributeTok{fill =}\NormalTok{ CoCYears))}\SpecialCharTok{+}
+  \FunctionTok{geom\_density}\NormalTok{()}\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{name =} \StringTok{"\%"}\NormalTok{, }\AttributeTok{labels=}\NormalTok{scales}\SpecialCharTok{::}\NormalTok{percent)}\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_gradient}\NormalTok{(}\AttributeTok{high =} \StringTok{"\#ff9300"}\NormalTok{,}\AttributeTok{low =} \StringTok{"\#b60000"}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{facet\_grid}\NormalTok{(CoCYears }\SpecialCharTok{\textasciitilde{}}\NormalTok{ .)}\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Property Value VS. CoC Duration"}\NormalTok{,}
+             \AttributeTok{y =} \StringTok{"Certificate of Compliance Duration (Years)"}\NormalTok{,}
+             \AttributeTok{x =} \StringTok{"Property Value (USD)"}\NormalTok{)}\SpecialCharTok{+}
+        \FunctionTok{guides}\NormalTok{(}\AttributeTok{fill=}\ConstantTok{FALSE}\NormalTok{)}\SpecialCharTok{+}
+        \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{final_files/figure-latex/value_vs_coc-2.pdf}
+
+\hypertarget{graph-6-map-of-coc-years-for-all-properties-in-burlington}{%
+\subsection{Graph 6: Map of CoC Years for all properties in
+Burlington}\label{graph-6-map-of-coc-years-for-all-properties-in-burlington}}
+
+The vast concentration of rental properties clearly lies in the Old
+North End neighborhood, and the areas surrounding UVM and downtown
+Burlington. The South End and New North End neighborhoods have a far
+lower density of rentals properties.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ggmap}\SpecialCharTok{::}\FunctionTok{register\_google}\NormalTok{(}\AttributeTok{key =} \StringTok{"AIzaSyBoXvBVphUedpDsc05jtjZbH5pQGZJWQLc"}\NormalTok{)}
+\FunctionTok{ggmap}\NormalTok{(}\FunctionTok{get\_googlemap}\NormalTok{(}\AttributeTok{center =} \FunctionTok{c}\NormalTok{(}\AttributeTok{lon =} \SpecialCharTok{{-}}\FloatTok{73.225}\NormalTok{, }\AttributeTok{lat =} \FloatTok{44.485}\NormalTok{),}
+                    \AttributeTok{zoom =} \DecValTok{13}\NormalTok{, }\AttributeTok{scale =} \DecValTok{2}\NormalTok{, }
+                    \AttributeTok{maptype =}\StringTok{\textquotesingle{}terrain\textquotesingle{}}\NormalTok{,}
+                    \AttributeTok{color =} \StringTok{\textquotesingle{}color\textquotesingle{}}\NormalTok{,}
+                    \AttributeTok{alpha =} \FloatTok{0.25}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ long, }\AttributeTok{y =}\NormalTok{ lat,  }
+                 \AttributeTok{color =}\NormalTok{ CoCYears), }\AttributeTok{data =}\NormalTok{ properties, }\AttributeTok{size =} \FloatTok{0.5}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position=}\StringTok{"right"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"CoC Years of Properties"}\NormalTok{, }\AttributeTok{x =} \StringTok{"Longitude"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Latitude"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Source : https://maps.googleapis.com/maps/api/staticmap?center=44.485,-73.225&zoom=13&size=640x640&scale=2&maptype=terrain&key=xxx
+\end{verbatim}
+
+\includegraphics{final_files/figure-latex/map-1.pdf}
+
+\hypertarget{iii.-machine-learning}{%
+\section{III. Machine Learning}\label{iii.-machine-learning}}
+
+\hypertarget{create-training-and-test-set-compare-proportions}{%
+\subsubsection{Create training and test set, compare
+proportions}\label{create-training-and-test-set-compare-proportions}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Select only useful numeric columns \& LandUseCode predictor. Filter out LandUseCodes which aren\textquotesingle{}t seen often.}
+\CommentTok{\# Interesting thing to note {-}{-} adding lat and long increases the accuracy by a few percentage points {-}{-} probably because similar types of residences are often grouped together in neighborhoods.}
+
+\NormalTok{properties\_simple }\OtherTok{\textless{}{-}}\NormalTok{ properties }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(LandUseCode, PropertyValue, PropertyTaxes, CoCYears, ResidentialUnits, RentalUnits, lat, long) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\NormalTok{(LandUseCode }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"E"}\NormalTok{, }\StringTok{"MH"}\NormalTok{, }\StringTok{"X"}\NormalTok{, }\StringTok{"C"}\NormalTok{, }\StringTok{"CC"}\NormalTok{, }\StringTok{"RAC"}\NormalTok{, }\StringTok{"S1"}\NormalTok{, }\StringTok{"TE"}\NormalTok{)))}
+
+\FunctionTok{RNGversion}\NormalTok{(}\StringTok{\textquotesingle{}3.5.3\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in RNGkind("Mersenne-Twister", "Inversion", "Rounding"): non-uniform
+## 'Rounding' sampler used
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{1112}\NormalTok{)}
+\NormalTok{sample }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\FunctionTok{nrow}\NormalTok{(properties\_simple), }\DecValTok{1500}\NormalTok{)}
+\FunctionTok{RNGversion}\NormalTok{(}\FunctionTok{getRversion}\NormalTok{())}
+
+\NormalTok{train }\OtherTok{\textless{}{-}}\NormalTok{ properties\_simple[sample, ]}
+\NormalTok{test }\OtherTok{\textless{}{-}}\NormalTok{ properties\_simple[}\SpecialCharTok{{-}}\NormalTok{sample,]}
+
+\FunctionTok{prop.table}\NormalTok{(}\FunctionTok{table}\NormalTok{(train}\SpecialCharTok{$}\NormalTok{LandUseCode))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##        CR        R1        R2        R3        R4        RA        RC 
+## 0.0440000 0.1460000 0.3000000 0.1233333 0.0800000 0.1373333 0.1693333
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{prop.table}\NormalTok{(}\FunctionTok{table}\NormalTok{(test}\SpecialCharTok{$}\NormalTok{LandUseCode))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##         CR         R1         R2         R3         R4         RA         RC 
+## 0.04037062 0.15552614 0.31369954 0.11846459 0.07809398 0.11383190 0.18001324
+\end{verbatim}
+
+\hypertarget{run-c5.0-model-on-data}{%
+\subsubsection{Run C5.0 model on data}\label{run-c5.0-model-on-data}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model }\OtherTok{\textless{}{-}} \FunctionTok{C5.0}\NormalTok{(}\AttributeTok{x =}\NormalTok{ train[,}\DecValTok{2}\SpecialCharTok{:}\DecValTok{8}\NormalTok{],}
+              \AttributeTok{y =} \FunctionTok{as.factor}\NormalTok{(train}\SpecialCharTok{$}\NormalTok{LandUseCode))}
+
+\CommentTok{\# display simple facts about the tree}
+
+\NormalTok{model}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## C5.0.default(x = train[, 2:8], y = as.factor(train$LandUseCode))
+## 
+## Classification Tree
+## Number of samples: 1500 
+## Number of predictors: 7 
+## 
+## Tree size: 27 
+## 
+## Non-standard options: attempt to group attributes
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# display detailed information about the tree}
+
+\FunctionTok{summary}\NormalTok{(model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## C5.0.default(x = train[, 2:8], y = as.factor(train$LandUseCode))
+## 
+## 
+## C5.0 [Release 2.07 GPL Edition]      Tue May 04 12:38:06 2021
+## -------------------------------
+## 
+## Class specified by attribute `outcome'
+## 
+## Read 1500 cases (8 attributes) from undefined.data
+## 
+## Decision tree:
+## 
+## ResidentialUnits > 2:
+## :...ResidentialUnits <= 3:
+## :   :...RentalUnits <= 1: R2 (3/1)
+## :   :   RentalUnits > 1: R3 (194/15)
+## :   ResidentialUnits > 3:
+## :   :...RentalUnits <= 4: R4 (137/20)
+## :       RentalUnits > 4: RA (209/17)
+## ResidentialUnits <= 2:
+## :...ResidentialUnits > 1:
+##     :...PropertyTaxes <= 13260.92: R2 (474/31)
+##     :   PropertyTaxes > 13260.92:
+##     :   :...lat <= 44.47394:
+##     :       :...CoCYears <= 4: R3 (2)
+##     :       :   CoCYears > 4: R2 (3/1)
+##     :       lat > 44.47394:
+##     :       :...RentalUnits <= 1: R1 (5/2)
+##     :           RentalUnits > 1: CR (7/1)
+##     ResidentialUnits <= 1:
+##     :...PropertyValue <= 163100:
+##         :...long > -73.2167: RC (130/1)
+##         :   long <= -73.2167:
+##         :   :...lat <= 44.4706: RC (13)
+##         :       lat > 44.4706:
+##         :       :...long <= -73.2488: RC (5)
+##         :           long > -73.2488:
+##         :           :...PropertyValue <= 137400: RC (7)
+##         :               PropertyValue > 137400: R1 (7/1)
+##         PropertyValue > 163100:
+##         :...RentalUnits > 4: RA (5/1)
+##             RentalUnits <= 4:
+##             :...PropertyValue > 283500:
+##                 :...lat > 44.48576: R1 (13/2)
+##                 :   lat <= 44.48576:
+##                 :   :...long > -73.2152:
+##                 :       :...PropertyTaxes <= 14359.6: R1 (59/8)
+##                 :       :   PropertyTaxes > 14359.6: CR (5/2)
+##                 :       long <= -73.2152:
+##                 :       :...lat > 44.47565: RC (7/1)
+##                 :           lat <= 44.47565:
+##                 :           :...lat <= 44.46257: R1 (4/1)
+##                 :               lat > 44.46257: CR (3)
+##                 PropertyValue <= 283500:
+##                 :...long <= -73.26775: RC (21/1)
+##                     long > -73.26775:
+##                     :...lat > 44.48114: R1 (109/13)
+##                         lat <= 44.48114:
+##                         :...long <= -73.2176: RC (20)
+##                             long > -73.2176:
+##                             :...lat <= 44.46945: R1 (21)
+##                                 lat > 44.46945:
+##                                 :...PropertyValue <= 251700: RC (29/3)
+##                                     PropertyValue > 251700: R1 (8/3)
+## 
+## 
+## Evaluation on training data (1500 cases):
+## 
+##      Decision Tree   
+##    ----------------  
+##    Size      Errors  
+## 
+##      27  125( 8.3%)   <<
+## 
+## 
+##     (a)   (b)   (c)   (d)   (e)   (f)   (g)    <-classified as
+##    ----  ----  ----  ----  ----  ----  ----
+##      12     5    13    10    12    14          (a): class CR
+##       2   196    13     1           2     5    (b): class R1
+##             2   447     1                      (c): class R2
+##             1         181     1     1     1    (d): class R3
+##             1           1   117     1          (e): class R4
+##             1     1     1     7   196          (f): class RA
+##       1    20     6     1               226    (g): class RC
+## 
+## 
+##  Attribute usage:
+## 
+##  100.00% ResidentialUnits
+##   57.27% RentalUnits
+##   37.00% PropertyTaxes
+##   31.07% PropertyValue
+##   29.87% long
+##   21.80% lat
+##    0.33% CoCYears
+## 
+## 
+## Time: 0.0 secs
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pred }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(model,  test)}
+
+\CommentTok{\# cross tabulation of predicted versus actual classes}
+\CommentTok{\#  dnn = names given to dimensions of table, rows then cols}
+
+\FunctionTok{CrossTable}\NormalTok{(test}\SpecialCharTok{$}\NormalTok{LandUseCode, pred,}
+           \AttributeTok{prop.chisq =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{prop.c =}\ConstantTok{FALSE}\NormalTok{,}
+           \AttributeTok{prop.r =} \ConstantTok{FALSE}\NormalTok{,}
+           \AttributeTok{dnn =} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}actual data\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}predicted data\textquotesingle{}}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  
+##    Cell Contents
+## |-------------------------|
+## |                       N |
+## |         N / Table Total |
+## |-------------------------|
+## 
+##  
+## Total Observations in Table:  1511 
+## 
+##  
+##              | predicted data 
+##  actual data |        CR |        R1 |        R2 |        R3 |        R4 |        RA |        RC | Row Total | 
+## -------------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|
+##           CR |         6 |        10 |        11 |         6 |        12 |        12 |         4 |        61 | 
+##              |     0.004 |     0.007 |     0.007 |     0.004 |     0.008 |     0.008 |     0.003 |           | 
+## -------------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|
+##           R1 |         3 |       191 |        14 |         2 |         1 |         4 |        20 |       235 | 
+##              |     0.002 |     0.126 |     0.009 |     0.001 |     0.001 |     0.003 |     0.013 |           | 
+## -------------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|
+##           R2 |         4 |        10 |       454 |         4 |         0 |         1 |         1 |       474 | 
+##              |     0.003 |     0.007 |     0.300 |     0.003 |     0.000 |     0.001 |     0.001 |           | 
+## -------------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|
+##           R3 |         1 |         0 |         3 |       168 |         4 |         1 |         2 |       179 | 
+##              |     0.001 |     0.000 |     0.002 |     0.111 |     0.003 |     0.001 |     0.001 |           | 
+## -------------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|
+##           R4 |         1 |         0 |         0 |         1 |       116 |         0 |         0 |       118 | 
+##              |     0.001 |     0.000 |     0.000 |     0.001 |     0.077 |     0.000 |     0.000 |           | 
+## -------------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|
+##           RA |         2 |         0 |         1 |         1 |         7 |       161 |         0 |       172 | 
+##              |     0.001 |     0.000 |     0.001 |     0.001 |     0.005 |     0.107 |     0.000 |           | 
+## -------------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|
+##           RC |         0 |        32 |         6 |         0 |         1 |         0 |       233 |       272 | 
+##              |     0.000 |     0.021 |     0.004 |     0.000 |     0.001 |     0.000 |     0.154 |           | 
+## -------------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|
+## Column Total |        17 |       243 |       489 |       182 |       141 |       179 |       260 |      1511 | 
+## -------------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|
+## 
+## 
+\end{verbatim}
+
+\hypertarget{redo-with-boosting-no-cost-matrix}{%
+\subsubsection{Redo with Boosting (no cost
+matrix)}\label{redo-with-boosting-no-cost-matrix}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model }\OtherTok{\textless{}{-}} \FunctionTok{C5.0}\NormalTok{(}\AttributeTok{x =}\NormalTok{ train[,}\DecValTok{2}\SpecialCharTok{:}\DecValTok{8}\NormalTok{],}
+              \AttributeTok{y =} \FunctionTok{as.factor}\NormalTok{(train}\SpecialCharTok{$}\NormalTok{LandUseCode),}
+              \AttributeTok{trials =} \DecValTok{10}\NormalTok{)}
+
+\CommentTok{\# display simple facts about the tree}
+
+\NormalTok{model}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## C5.0.default(x = train[, 2:8], y = as.factor(train$LandUseCode), trials = 10)
+## 
+## Classification Tree
+## Number of samples: 1500 
+## Number of predictors: 7 
+## 
+## Number of boosting iterations: 10 
+## Average tree size: 24.8 
+## 
+## Non-standard options: attempt to group attributes
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# display detailed information about the tree}
+
+\CommentTok{\# summary(model)}
+
+\NormalTok{pred }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(model,  test)}
+\FunctionTok{CrossTable}\NormalTok{(test}\SpecialCharTok{$}\NormalTok{LandUseCode, pred,}
+           \AttributeTok{prop.chisq =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{prop.c =}\ConstantTok{FALSE}\NormalTok{,}
+           \AttributeTok{prop.r =} \ConstantTok{FALSE}\NormalTok{,}
+           \AttributeTok{dnn =} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}actual data\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}predicted data\textquotesingle{}}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  
+##    Cell Contents
+## |-------------------------|
+## |                       N |
+## |         N / Table Total |
+## |-------------------------|
+## 
+##  
+## Total Observations in Table:  1511 
+## 
+##  
+##              | predicted data 
+##  actual data |        CR |        R1 |        R2 |        R3 |        R4 |        RA |        RC | Row Total | 
+## -------------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|
+##           CR |         9 |        10 |        11 |         4 |        12 |        11 |         4 |        61 | 
+##              |     0.006 |     0.007 |     0.007 |     0.003 |     0.008 |     0.007 |     0.003 |           | 
+## -------------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|
+##           R1 |         1 |       192 |        14 |         2 |         1 |         4 |        21 |       235 | 
+##              |     0.001 |     0.127 |     0.009 |     0.001 |     0.001 |     0.003 |     0.014 |           | 
+## -------------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|
+##           R2 |         6 |         9 |       455 |         3 |         0 |         1 |         0 |       474 | 
+##              |     0.004 |     0.006 |     0.301 |     0.002 |     0.000 |     0.001 |     0.000 |           | 
+## -------------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|
+##           R3 |         4 |         2 |         3 |       165 |         4 |         1 |         0 |       179 | 
+##              |     0.003 |     0.001 |     0.002 |     0.109 |     0.003 |     0.001 |     0.000 |           | 
+## -------------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|
+##           R4 |         1 |         0 |         0 |         1 |       116 |         0 |         0 |       118 | 
+##              |     0.001 |     0.000 |     0.000 |     0.001 |     0.077 |     0.000 |     0.000 |           | 
+## -------------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|
+##           RA |         1 |         1 |         1 |         1 |         7 |       161 |         0 |       172 | 
+##              |     0.001 |     0.001 |     0.001 |     0.001 |     0.005 |     0.107 |     0.000 |           | 
+## -------------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|
+##           RC |         0 |        30 |         6 |         0 |         1 |         0 |       235 |       272 | 
+##              |     0.000 |     0.020 |     0.004 |     0.000 |     0.001 |     0.000 |     0.156 |           | 
+## -------------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|
+## Column Total |        22 |       244 |       490 |       176 |       141 |       178 |       260 |      1511 | 
+## -------------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|
+## 
+## 
+\end{verbatim}
+
+\hypertarget{iv.-conclusions}{%
+\section{IV. Conclusions}\label{iv.-conclusions}}
+
+The data set we used included data from a little over 3000 properties in
+Burlington, VT, and goes into their certificates of compliance. Our
+visualizations of this data set, which we combined with data from the
+Burlington property database, are quite helpful in analysis. Our graph
+of the number of properties owned per landlord (Graph 1) showed that it
+is much more common for landlords to own only a few properties, and the
+data is very skewed right. Graph 2 shows the different rental types:
+what's popular and what is not. The type `R2' or 2 Family, was found to
+be most common, with `RC', or Residential Condo, close behind. Graph 3
+showed us that certificates of compliance by years had a left skew. Most
+of them last four or five years, with a significantly lower number of
+any less years. Graph 4 displays the similarities between certificate of
+compliance years and property value, and how regardless of years
+certificates of compliance were in place, property value stayed more or
+less the same.
+
+\hypertarget{v.-limitationsrecommendations}{%
+\section{V.
+Limitations/Recommendations}\label{v.-limitationsrecommendations}}
+
+The major limitations of this data set stem from the highly contextual
+nature of property ownership records. A landlord can be listed as the
+owner of a property under their legal name or an LLC, and a single
+person can own multiple LLCs. If a landlord owns a large number of
+properties but wishes to obfuscate that fact, they can distribute
+ownership of those properties throughout a handful of different LLCs.
+Similarly, a family can control a large number of properties
+collectively --- take the Bissonette family, for example. Their LLC,
+``BPJS MANAGEMENT LLC'', is listed as the owner of 21 different
+properties in the database, but the family collectively owns 6
+additional properties under their respective legal names, and may
+potentially control even more properties via LLCs. Further research
+could attempt to rectify this problem via deep analysis of who actually
+owns each individual LLC, as those documents are likely public. This
+would be a very time-consuming endeavor, but would give a much more
+granular and accurate view of who controls property in Burlington.
+
+\end{document}
