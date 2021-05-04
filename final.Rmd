@@ -237,7 +237,7 @@ The vast concentration of rental properties clearly lies in the Old North End ne
 
 
 ```{r map, warning=FALSE}
-ggmap::register_google(key = "AIzaSyBoXvBVphUedpDsc05jtjZbH5pQGZJWQLc")
+ggmap::register_google(key = "xxx")
 ggmap(get_googlemap(center = c(lon = -73.225, lat = 44.485),
                     zoom = 13, scale = 2, 
                     maptype ='terrain',
